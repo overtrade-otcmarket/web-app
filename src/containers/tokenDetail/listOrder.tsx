@@ -23,6 +23,7 @@ import moment from 'moment';
 import CustomImage from '@/components/custom/CustomImage';
 import Link from 'next/link';
 import IconTxs from '@/assets/icons/IconTxs';
+import CustomSelect from '@/components/custom/CustomSelect';
 const ListOrder = () => {
   const setOrderDetail = useStore((state) => state.setOrderDetail);
   const orderDetail = useStore((state: any) => state.orderDetail);
@@ -279,15 +280,19 @@ const ListOrder = () => {
     },
   ];
 
-  const [paginationBuy, setPaginationBuy] = useState({
+  const [paramSearchBuy, setParamSearchBuy] = useState({
     page: 1,
     limit: 10,
-  });
+    sortField: 'price',
+    orderBy: 'DESC',
+  } as any);
 
-  const [paginationSell, setPaginationSell] = useState({
+  const [paramSearchSell, setParamSearchSell] = useState({
     page: 1,
     limit: 10,
-  });
+    sortField: 'price',
+    orderBy: 'DESC',
+  } as any);
 
   const [paginationActivities, setPaginationActivities] = useState({
     page: 1,
@@ -300,7 +305,7 @@ const ListOrder = () => {
     refetch: refetchBuy,
   } = useGetListOrder({
     tokenAddress: params?.id,
-    ...paginationBuy,
+    ...paramSearchBuy,
     orderType: ORDER_TYPE.SELL,
     enabled: !!params?.id,
   });
@@ -311,7 +316,7 @@ const ListOrder = () => {
     refetch: refetchSell,
   } = useGetListOrder({
     tokenAddress: params?.id,
-    ...paginationBuy,
+    ...paramSearchBuy,
     orderType: ORDER_TYPE.BUY,
     enabled: !!params?.id,
   });
@@ -327,15 +332,15 @@ const ListOrder = () => {
   });
 
   const onChangePaginationBuy = (page: number, pageSize: number) => {
-    setPaginationBuy({
-      ...paginationBuy,
+    setParamSearchBuy({
+      ...paramSearchBuy,
       page: page,
     });
   };
 
   const onChangePaginationSell = (page: number, pageSize: number) => {
-    setPaginationSell({
-      ...paginationSell,
+    setParamSearchSell({
+      ...paramSearchSell,
       page: page,
     });
   };
@@ -367,14 +372,55 @@ const ListOrder = () => {
     }
   };
 
-  console.log(orderDetail,"orderDetail?.id")
-
   return (
     <div>
       <div className='grid border-x border-stroke max-sm:grid-cols-1 sm:grid-cols-2'>
         <div className='border-r border-stroke p-6'>
-          <div className='relative mb-4 text-left text-[24px] font-extrabold leading-[32px]'>
-            Buy {tokenDetail?.data?.tokenSymbol}
+          <div className='relative mb-4 flex w-full justify-between text-left text-[24px] font-extrabold leading-[32px]'>
+            <div>Buy {tokenDetail?.data?.tokenSymbol}</div>
+            <div className='flex items-center gap-2'>
+              <CustomSelect
+                // data-aos='fade-up'
+                // data-aos-delay={600}
+                options={[
+                  {
+                    value: 'DESC',
+                    label: 'Sort by: Highest Price',
+                  },
+                  {
+                    value: 'ASC',
+                    label: 'Sort by: Lowest Price',
+                  },
+                ]}
+                value={paramSearchBuy?.orderBy}
+                onChange={(value: any) => {
+                  setParamSearchBuy({
+                    ...paramSearchBuy,
+                    sortField: 'price',
+                    orderBy: value,
+                  });
+                }}
+              />
+              <CustomSelect
+                // data-aos='fade-up'
+                // data-aos-delay={400}
+                placeholder='Match Type'
+                options={[
+                  { value: ORDER_MATCH_TYPE.FULL, label: 'Match Type: Full' },
+                  {
+                    value: ORDER_MATCH_TYPE.PARTIAL,
+                    label: 'Match Type: Partial',
+                  },
+                ]}
+                value={paramSearchBuy?.matchType}
+                onChange={(value: any) => {
+                  setParamSearchBuy({
+                    ...paramSearchBuy,
+                    matchType: value,
+                  });
+                }}
+              />
+            </div>
           </div>
           <TableTrade
             columns={tradeColumnBuy}
@@ -384,7 +430,7 @@ const ListOrder = () => {
               record?.orderId == orderDetail?.orderId ? 'bg-[#D6E1FF]' : ''
             }
             pagination={{
-              current: paginationBuy?.page,
+              current: paramSearchBuy?.page,
               pageSize: 10,
               onChange: onChangePaginationBuy,
               total: listBuyOrderData?.data?.totalCount,
@@ -393,8 +439,51 @@ const ListOrder = () => {
           />
         </div>
         <div className='border-r border-stroke p-6'>
-          <div className='relative mb-4 text-left text-[24px] font-extrabold leading-[32px]'>
-            Sell {tokenDetail?.data?.tokenSymbol}
+          <div className='relative mb-4 flex w-full justify-between text-left text-[24px] font-extrabold leading-[32px]'>
+            <div>Sell {tokenDetail?.data?.tokenSymbol}</div>
+            <div className='flex items-center gap-2'>
+              <CustomSelect
+                // data-aos='fade-up'
+                // data-aos-delay={600}
+                options={[
+                  {
+                    value: 'DESC',
+                    label: 'Sort by: Highest Price',
+                  },
+                  {
+                    value: 'ASC',
+                    label: 'Sort by: Lowest Price',
+                  },
+                ]}
+                value={paramSearchSell?.orderBy}
+                onChange={(value: any) => {
+                  setParamSearchSell({
+                    ...paramSearchSell,
+                    sortField: 'price',
+                    orderBy: value,
+                  });
+                }}
+              />
+              <CustomSelect
+                // data-aos='fade-up'
+                // data-aos-delay={400}
+                placeholder='Match Type'
+                options={[
+                  { value: ORDER_MATCH_TYPE.FULL, label: 'Match Type: Full' },
+                  {
+                    value: ORDER_MATCH_TYPE.PARTIAL,
+                    label: 'Match Type: Partial',
+                  },
+                ]}
+                value={paramSearchSell?.matchType}
+                onChange={(value: any) => {
+                  setParamSearchSell({
+                    ...paramSearchSell,
+                    matchType: value,
+                  });
+                }}
+              />
+            </div>
           </div>
           <TableTrade
             columns={tradeColumnSell}
@@ -404,7 +493,7 @@ const ListOrder = () => {
               record?.orderId == orderDetail?.orderId ? 'bg-[#D6E1FF]' : ''
             }
             pagination={{
-              current: paginationSell?.page,
+              current: paramSearchSell?.page,
               pageSize: 10,
               onChange: onChangePaginationSell,
               total: listSellOrderData?.data?.totalCount,
