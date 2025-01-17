@@ -1,0 +1,20 @@
+.custom-modal .ant-modal-content {
+  @apply !rounded-2xl bg-blue-200 !p-0;
+}
+
+.ant-modal-mask {
+  /* background-color: rgba(0, 0, 0, 0.6) !important; */
+  @apply bg-[#1a2a3c]/60 backdrop-blur-[29.70px];
+}
+
+.header-search-input .ant-input {
+  @apply font-semibold placeholder:!text-white;
+}
+
+.explore-search-input .ant-input {
+  @apply font-semibold placeholder:!text-primary;
+}
+
+.select-token-search-input .ant-input {
+  @apply font-semibold placeholder:!text-secondary;
+}

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Archivo', sans-serif !important;
+}
+
+@layer base {
+  :root {
+    --font-archivo: 'Archivo', sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply flex h-12 items-center justify-center rounded-full border-none bg-primary px-5 py-3 text-base font-semibold text-white hover:!bg-[#3925E4] hover:!text-white;
+  }
+
+  .btn-secondary {
+    @apply flex h-12 items-center justify-center rounded-full border-none bg-error px-5 py-3 text-base font-semibold text-white hover:!bg-[#CB454F] hover:!text-white;
+  }
+
+  .btn-white {
+    @apply flex h-12 items-center justify-center rounded-[16px] border-none bg-white px-5 py-3 text-base font-semibold text-primary shadow-[0px_0px_16px_rgba(29,_23,_84,_0.1)] hover:bg-white hover:!text-primary;
+  }
+
+  .layout-container {
+    @apply mx-auto max-w-[1700px] px-[16px] sm:px-[24px];
+  }
+
+  .three_dot_2_line {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .three_dot_1_line {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* custom scroll bar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  /* end custom scroll bar */
+}
+
+@layer utilities {
+}
