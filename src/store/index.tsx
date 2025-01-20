@@ -7,8 +7,6 @@ const useStore = create((set: any) => ({
   setProfile: (profile: any) => set({ profile }),
   strkPrice: 1,
   setStrkPrice: (strkPrice: any) => set({ strkPrice }),
-  token: undefined,
-  setToken: (token: any) => set({ token }),
   showModalConnectWallet: false,
   setShowModalConnectWallet: (showModalConnectWallet: boolean) =>
     set({ showModalConnectWallet }),

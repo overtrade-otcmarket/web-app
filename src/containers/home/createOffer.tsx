@@ -291,7 +291,7 @@ const CreateOffer = ({ typeOrder, openModalSelectToken }: any) => {
           </div>
           <div className='inline-flex items-center justify-between self-stretch'>
             <NumericFormat
-              decimalScale={7}
+              decimalScale={10}
               className='!w-[100%] !bg-transparent text-3xl font-semibold outline-none'
               value={price || 0}
               thousandSeparator

@@ -13,6 +13,7 @@ import ModalSuccess from '@/components/modal/ModalSuccess';
 import { usePathname, useRouter } from 'next/navigation';
 import ModalConnectWallet from '@/components/modal/ModalConnectWallet';
 import ModalSelectToken from '@/components/modal/ModalSelectToken';
+import MarqueeRun from '@/components/marquee';
 
 const Layout = ({ children }: any) => {
   const { isMounted } = useMounted();
@@ -54,6 +55,7 @@ const Layout = ({ children }: any) => {
             <div
               className={`mx-auto flex min-h-[var(--100vh)] w-full flex-col items-center bg-[#D6E1FF] ${!pathname?.includes('/token/') && 'pb-10'} text-primary`}
             >
+              <MarqueeRun />
               <Header />
               {children}
               <ModalSelectToken

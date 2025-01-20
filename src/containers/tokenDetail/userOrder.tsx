@@ -46,7 +46,7 @@ const UserOrder = () => {
   const { data: tokenDetail } = useGetTokenDetail({
     tokenAddress: params?.id,
   });
-
+console.log(isAuthenticated,"isAuthenticated")
   const handleCancelOffer = async (params: any) => {
     try {
       setOrderDetail(params);

@@ -17,6 +17,7 @@ import { ArraySignatureType, typedData, TypedData } from 'starknet';
 import { loginApi } from '@/service/connect';
 import { jwtDecode } from 'jwt-decode';
 import useMounted from '@/hook/useMounted';
+import { setToken } from '@/service/api';
 
 const ModalConnectWallet = ({ open, onCancel }: any) => {
   const { connect, connectors } = useConnect();
@@ -28,7 +29,6 @@ const ModalConnectWallet = ({ open, onCancel }: any) => {
   const currentConnectedAccount = useStore(
     (state) => state.currentConnectedAccount
   );
-  const setToken = useStore((state) => state.setToken);
   const setCurrentConnectedAccount = useStore(
     (state) => state.setCurrentConnectedAccount
   );
@@ -111,10 +111,10 @@ const ModalConnectWallet = ({ open, onCancel }: any) => {
       }
     };
 
-    if (currentConnectedAccount) {
+    if (address) {
       login();
     }
-  }, [currentConnectedAccount, isMounted]);
+  }, [address, isMounted]);
 
   const handleLoginStarknet = (connector: Connector) => {
     try {
@@ -155,7 +155,6 @@ const ModalConnectWallet = ({ open, onCancel }: any) => {
 
   useEffect(() => {
     if (address) {
-      setIsAuthenticated(true);
       setCurrentConnectedAccount(formatStarknet(address));
     }
   }, [address]);
